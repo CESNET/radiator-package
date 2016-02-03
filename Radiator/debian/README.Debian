@@ -1,0 +1,26 @@
+This is the debian package for the Radiator software. This is just the
+package wraper, you need to buy licence of Radiator and download it's
+source itself, see https://www.open.com.au/radiator/
+
+Usage:
+
+cd /tmp/
+# download Radiator and latest patchset
+# extract Radiator
+# mv Radiator-X.XX Radiator
+cd Radiator
+# extract patchset
+cd ..
+tar zcvf radiator_<version>.<patchset-version>.orig.tar.gz Radiator
+
+git clone git@github.com:CESNET/radiator-package.git
+cd radiator-package
+tar zxvf ../radiator_<version>.<patchset-version>.orig.tar.gz
+cd Radiator
+# modify debian/control to cointain latest <version>.<patchset-version>
+debuild -us -uc
+# enjoy your Radiator package
+
+
+Package was created by Jan Tomasek <jan@tomasek.cz> based on tutorial
+https://wiki.debian.org/IntroDebianPackaging.

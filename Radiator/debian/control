@@ -1,0 +1,13 @@
+Source: radiator
+Maintainer: Jan Tomasek <jan@tomasek.cz>
+Section: misc
+Priority: optional
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9)
+Homepage: https://www.open.com.au/radiator/
+
+Package: radiator
+Architecture: any
+Depends: ${misc:Depends}, perl, libdigest-md4-perl, libdigest-md5-perl, libnet-ssleay-perl, libdigest-crc-perl, libdigest-md2-perl, libdigest-md5-file-perl, libdigest-perl, libio-socket-ssl-perl, libsnmp-session-perl, libdigest-hmac-perl, libnet-ldap-perl, libnet-ssleay-perl (>=1.65)
+Description: RADIUS server
+ Opensource commercial software available at https://www.open.com.au/radiator/
