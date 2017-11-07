@@ -15,7 +15,8 @@ tar zcvf radiator_<version>.<patchset-version>.orig.tar.gz Radiator
 
 git clone git@github.com:CESNET/radiator-package.git
 cd radiator-package
-tar zxvf ../radiator_<version>.<patchset-version>.orig.tar.gz
+mv ../radiator_<version>.<patchset-version>.orig.tar.gz # proc tak komplikovane?
+tar zxvf radiator_<version>.<patchset-version>.orig.tar.gz
 cd Radiator
 # modify debian/control to cointain latest <version>.<patchset-version>
 debuild -us -uc
