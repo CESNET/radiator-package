@@ -1,0 +1,63 @@
+--- Radiator/Radius/LogFILE.pm.4.19	2017-11-07 08:04:44.551871092 +0100
++++ Radiator/Radius/LogFILE.pm	2017-11-07 08:07:00.363870574 +0100
+@@ -11,6 +11,7 @@
+ @ISA = qw(Radius::LogGeneric);
+ use File::Path;
+ use File::Basename;
++use Time::Local;
+ use strict;
+ 
+ %Radius::LogFILE::ConfigKeywords = 
+@@ -29,6 +30,9 @@
+ # recursion protection, because runHook does $self->log()
+ my $in_log = 0;
+ 
++# Cache
++my $log_file = {};
++
+ #####################################################################
+ # Do per-instance default initialization
+ # This is called by Configurable during Configurable::new before
+@@ -81,9 +85,39 @@
+ 	    $message =~ s/^/$trace_id /mg if $self->{LogTraceId}; # m for multiline message
+ 	}
+ 
+-	my $filename = &Radius::Util::format_special($self->{Filename}, $p, undef, $priority, $s);
+-	&Radius::Util::append($filename, $message . "\n")
+-	    || warn "Log could not append '$message' to log file '$filename': $!";
++	my $filename;
++	my $now = time;
++	if ((not defined($log_file->{$self->{Filename}})) or
++	    ($now > $log_file->{$self->{Filename}}->{recompile_ts})) {
++	    # format_special is very expensive, recalculate it only hourly
++	    
++	    $filename = &Radius::Util::format_special($self->{Filename}, $p, undef, $priority, $s);
++	    $log_file->{$self->{Filename}}->{compiled_filename} = $filename;
++
++	    # count time when recalculate filename is required
++	    my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($now);
++	    $log_file->{$self->{Filename}}->{recompile_ts} = timelocal( 59, 59, $hour, $mday, $mon, $year );
++
++	    # close filehandler if it was open
++	    if (defined($log_file->{$self->{Filename}}->{fh})) {
++		close($log_file->{$self->{Filename}}->{fh})
++		    || warn "Failed to close $filename: $!";
++		delete $log_file->{$self->{Filename}}->{fh};
++		    
++	    };
++	};
++	$filename = $log_file->{$self->{Filename}}->{compiled_filename};
++
++	my $fh;
++	unless (exists $log_file->{$self->{Filename}}->{fh}) {
++	    open($fh, ">>$filename")
++		|| warn "Failed to open $filename for appending: $!";
++	    $log_file->{$self->{Filename}}->{fh} = $fh;
++	} else {
++	    $fh = $log_file->{$self->{Filename}}->{fh};
++	};
++
++	print $fh $message."\n";
+     }
+     $in_log = 0;
+ }

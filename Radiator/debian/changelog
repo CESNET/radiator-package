@@ -1,3 +1,28 @@
+radiator (4.19.2136-2) UNRELEASED; urgency=medium
+
+  * package now correctly works with debian/patches
+
+ -- Jan Tomasek <jan@tomasek.cz>  Tue, 07 Nov 2017 16:14:00 +0100
+
+radiator (4.19.2136-1) UNRELEASED; urgency=medium
+
+  * upstream 4.19 with 1.2132
+  * CESNET's patches
+
+ -- Jan Tomasek <jan@tomasek.cz>  Mon, 06 Nov 2017 19:06:00 +0100
+
+radiator (4.19.2132-2) UNRELEASED; urgency=medium
+
+  * CESNET's patches
+
+ -- Jan Tomasek <jan@tomasek.cz>  Mon, 30 Oct 2017 19:34:00 +0100
+
+radiator (4.19.2132-1) UNRELEASED; urgency=medium
+
+  * upstream 4.19 with 1.2132
+
+ -- Jan Tomasek <jan@tomasek.cz>  Mon, 30 Oct 2017 18:31:00 +0100
+
 radiator (4.16.1839-3) UNRELEASED; urgency=medium
 
   * added copyright
