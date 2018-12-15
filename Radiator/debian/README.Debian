@@ -23,5 +23,5 @@ debuild -us -uc
 # enjoy your Radiator package
 
 
-Package was created by Jan Tomasek <jan@tomasek.cz> based on tutorial
-https://wiki.debian.org/IntroDebianPackaging.
+Package was created by Jan Tomasek <jan@tomasek.cz> at CESNET
+based on tutorial https://wiki.debian.org/IntroDebianPackaging.
