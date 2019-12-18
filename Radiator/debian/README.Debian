@@ -18,7 +18,7 @@ cd radiator-package
 mv ../radiator_<version>.<patchset-version>.orig.tar.gz # proc tak komplikovane?
 tar zxvf radiator_<version>.<patchset-version>.orig.tar.gz
 cd Radiator
-# modify debian/control to cointain latest <version>.<patchset-version>
+# modify debian/changelog to cointain latest <version>.<patchset-version>
 debuild -us -uc
 # enjoy your Radiator package
 
